@@ -3,6 +3,9 @@
 * {
     box-sizing: border-box;
 }
+span {
+    font-weight: bold;
+}
 body {
     background-color: #e5e5e5;
     font-family: "Roboto", sans-serif;
@@ -13,6 +16,8 @@ body {
     height: 80px;
     background-color: #fff;
     position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,8 +26,39 @@ body {
 
 .container-topo img {
     width: 75px;
+    cursor: pointer;
 }
 
 .container-topo ion-icon {
     font-size: 43px;
+    cursor: pointer;
+}
+.container-chat {
+    width: 100%;
+    margin-top: 106px;
+}
+
+.mensagem {
+    width: 100%;
+    padding: 10px 9px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    border-radius: 2px;
+    margin-top: 4px;
+}
+.horario {
+    display: inline;
+    color: #aaaaaa;
+    margin-right: 5px;
+}
+.status {
+    background-color: #dcdcdc;
+}
+.mensagem-global {
+    background: #ffffff;
+}
+
+.mensagem-reservada {
+    background: #ffdede;
 }
