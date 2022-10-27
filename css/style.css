@@ -50,6 +50,7 @@ body {
 }
 .horario {
     display: inline;
+    font-weight: 400;
     color: #aaaaaa;
     margin-right: 5px;
 }
