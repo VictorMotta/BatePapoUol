@@ -12,18 +12,10 @@
             <img src="./img/logo.svg" alt="" />
             <ion-icon name="people"></ion-icon>
         </div>
-        <ul class="container-chat">
-            <li class="mensagem mensagem-reservada">
-                <h3>
-                    <span class="horario">(09:22:38)</span>
-                    <span class="usuario">João</span> reservadamente para
-                    <span class="mensagem-privada">Maria:</span> Oi gatinha quer tc?
-                </h3>
-            </li>
-        </ul>
+        <ul class="container-chat"></ul>
         <div class="container-enviar-mensagem">
             <input id="envia-mensagem" type="text" placeholder="Escreva aqui..." />
-            <ion-icon name="paper-plane-outline"></ion-icon>
+            <ion-icon name="paper-plane-outline" onclick="enviaMensagem()"></ion-icon>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
