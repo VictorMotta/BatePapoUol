@@ -1,7 +1,9 @@
 let usuario;
 
+const link = "https://mock-api.driven.com.br/api/v6/uol";
+
 function buscaMensagem() {
-    const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
+    const promisse = axios.get(`${link}/messages`);
 
     promisse.then(carregaMensagem);
     setTimeout(scrollBar, 500);
@@ -54,25 +56,35 @@ function scrollBar() {
 }
 
 function entraNaSala() {
-    usuario = {
-        name: prompt("Qual o nome do usuário?"),
-    };
-    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants ", usuario);
+    console.log(usuario);
+    const promisse = axios.post(`${link}/participants`, usuario);
     promisse.then((resposta) => {
-        console.log("Entrou na sala!");
+        loadingEntraSala();
+        buscaMensagem();
+        setInterval(buscaMensagem, 3000);
+        setInterval(updateStatus, 5000);
     });
     promisse.catch(errorEntraSala);
 }
 
 function errorEntraSala(resposta) {
+    console.log(resposta);
     if (resposta.response.status === 400) {
-        alert("Esse nome de usuário ja existe, digite outro inexistente!");
-        entraNaSala();
+        const mostraInput = document.querySelector(".container-total-login");
+        const apagaLoading = document.querySelector(".container-loading");
+        const mostraMenuLogin = document.querySelector(".container-hidden-login");
+        const nomeUsuarioInput = document.querySelector("#nome-usuario");
+        nomeUsuarioInput.value = "";
+        nomeUsuarioInput.placeholder = "Esse nome já está em uso!";
+        nomeUsuarioInput.style.border = "1px solid red";
+        mostraMenuLogin.classList.remove("hidden");
+        apagaLoading.classList.add("hidden");
+        mostraInput.classList.remove("hidden");
     }
 }
 
 function updateStatus() {
-    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", usuario);
+    const promisse = axios.post(`${link}/status`, usuario);
     promisse.then(verificaOnline);
 }
 
@@ -92,7 +104,7 @@ function enviaMensagem() {
         type: "message", // ou "private_message" para o bônus
     };
 
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages/", mensagem);
+    const promise = axios.post(`${link}/messages/`, mensagem);
     promise.then(respostaEnvio);
     promise.catch(errorEnvio);
 }
@@ -107,17 +119,37 @@ function respostaEnvio(resposta) {
 
 function errorEnvio(resposta) {
     const mensagemDigitada = document.querySelector("#envia-mensagem");
-    if (resposta.response.status == 404) {
-        window.location.reload();
-    } else if (resposta.response.status == 400) {
+    if (resposta.response.status == 400) {
         if (mensagemDigitada.value == "") {
             mensagemDigitada.placeholder = "Digite alguma coisa antes de enviar!";
             mensagemDigitada.style.border = "1px solid red";
         }
+    } else {
+        window.location.reload();
     }
 }
 
-buscaMensagem();
-setInterval(buscaMensagem, 3000);
-entraNaSala();
-setInterval(updateStatus, 5000);
+function salvaNomeUsuario(valor) {
+    const usuarioDigitado = document.querySelector("#nome-usuario").value;
+    usuario = {
+        name: usuarioDigitado,
+    };
+
+    entraNaSala();
+}
+
+function loadingEntraSala() {
+    const apagaInput = document.querySelector(".container-total-login");
+    const amostraLoading = document.querySelector(".container-loading");
+    const apagaMenuLogin = document.querySelector(".container-hidden-login");
+    const nomeUsuarioInput = document.querySelector("#nome-usuario");
+    apagaInput.classList.add("hidden");
+    amostraLoading.classList.remove("hidden");
+
+    nomeUsuarioInput.placeholder = "Digite seu nome";
+    nomeUsuarioInput.border = "none";
+
+    setTimeout(() => {
+        apagaMenuLogin.classList.add("hidden");
+    }, 500);
+}

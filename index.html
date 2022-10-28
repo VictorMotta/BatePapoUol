@@ -8,6 +8,24 @@
         <link rel="stylesheet" href="./css/style.css" />
     </head>
     <body>
+        <div class="container-hidden-login">
+            <div class="container-total-login">
+                <div class="container-login">
+                    <img src="./img/logo.svg" alt="" />
+                    <input type="text" id="nome-usuario" class="" placeholder="Digite seu nome" />
+                    <button onclick="salvaNomeUsuario(this);" class="" id="botao-enviar">
+                        Entrar
+                    </button>
+                </div>
+            </div>
+            <div class="container-loading hidden">
+                <img src="./img/logo.svg" alt="" />
+                <div class="container-entrando">
+                    <div class="loading"></div>
+                    <h1>Entrando...</h1>
+                </div>
+            </div>
+        </div>
         <div class="container-topo">
             <img src="./img/logo.svg" alt="" />
             <ion-icon name="people"></ion-icon>
