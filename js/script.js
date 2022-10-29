@@ -1,5 +1,7 @@
 let usuario;
 
+const inputMensagem = document.querySelector("#envia-mensagem");
+const inputNomeDeUsuario = document.querySelector("#nome-usuario");
 const link = "https://mock-api.driven.com.br/api/v6/uol";
 
 function buscaMensagem() {
@@ -31,7 +33,7 @@ function carregaMensagem(resposta) {
                 </h3>
             </li>
             `;
-        } else if (listaMensagem[i].type === "private_message" && listaMensagem[i].to == usuario) {
+        } else if (listaMensagem[i].type == "private_message" && listaMensagem[i].to == usuario) {
             console.log(listaMensagem[i].to);
             containerChat.innerHTML += `            
             <li class="mensagem mensagem-reservada">
@@ -129,7 +131,7 @@ function errorEnvio(resposta) {
     }
 }
 
-function salvaNomeUsuario(valor) {
+function salvaNomeUsuario() {
     const usuarioDigitado = document.querySelector("#nome-usuario").value;
     usuario = {
         name: usuarioDigitado,
@@ -153,3 +155,15 @@ function loadingEntraSala() {
         apagaMenuLogin.classList.add("hidden");
     }, 500);
 }
+
+inputMensagem.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        enviaMensagem();
+    }
+});
+
+inputNomeDeUsuario.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        salvaNomeUsuario();
+    }
+});
