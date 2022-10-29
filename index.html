@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="./css/style.css" />
     </head>
     <body>
+        <!-- Inicio container login  -->
+
         <div class="container-hidden-login">
             <div class="container-total-login">
                 <div class="container-login">
@@ -24,15 +26,93 @@
                 </div>
             </div>
         </div>
+
+        <!-- Fim container login  -->
+
+        <!-- Inicio menu topo  -->
+
         <div class="container-topo">
             <img src="./img/logo.svg" alt="" />
-            <ion-icon name="people"></ion-icon>
+            <ion-icon id="menu-participantes" name="people"></ion-icon>
         </div>
+
+        <!-- Fim menu topo  -->
+
+        <!-- Inicio menu de participantes  -->
+
+        <div class="container-fora-menu-participantes hidden">
+            <div class="container-com-flex">
+                <div id="button-fechar"></div>
+                <div class="container-menu-participantes">
+                    <h1>Escolha um contato para enviar mensagem:</h1>
+                    <ul class="usuarios-participantes"></ul>
+                    <h1>Escolha a visibilidade:</h1>
+                    <ul class="escolhe-visibilidade">
+                        <li
+                            id="publico"
+                            onclick="selecionaVisibilidade(this)"
+                            class="lista-escolhe-visibilidade selected"
+                        >
+                            <ion-icon name="lock-open"></ion-icon>
+                            <h3>Público</h3>
+                        </li>
+                        <li
+                            id="reservado"
+                            onclick="selecionaVisibilidade(this)"
+                            class="lista-escolhe-visibilidade"
+                        >
+                            <ion-icon name="lock-closed"></ion-icon>
+                            <h3>Reservadamente</h3>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fim menu de participantes  -->
+
+        <!-- Inicio chat  -->
+
         <ul class="container-chat"></ul>
+
+        <!-- Fim chat  -->
+
+        <!-- Inicio container de enviar mensagens  -->
+
         <div class="container-enviar-mensagem">
-            <input id="envia-mensagem" type="text" placeholder="Escreva aqui..." />
-            <ion-icon id="send" name="paper-plane-outline" onclick="enviaMensagem()"></ion-icon>
+            <div class="container-hidden-mensagem-todos">
+                <div class="mensagem-todos">
+                    <input id="input-mensagem-todos" type="text" placeholder="Escreva aqui..." />
+                    <ion-icon
+                        id="send-mensagem-todos"
+                        name="paper-plane-outline"
+                        onclick="enviaMensagemPublica()"
+                    ></ion-icon>
+                </div>
+            </div>
+            <div class="container-hidden-mensagem-reservado hidden">
+                <div class="mensagem-reservada-envio">
+                    <div>
+                        <input
+                            id="input-mensagem-reservada"
+                            type="text"
+                            placeholder="Escreva aqui..."
+                        />
+                        <ion-icon
+                            id="send-mensagem-reservada"
+                            name="paper-plane-outline"
+                            onclick="enviaMensagemReservada()"
+                        ></ion-icon>
+                    </div>
+                    <h3>
+                        Enviando para
+                        <span id="nome-usuario-enviar-reservado">Todos</span> (reservadamente)
+                    </h3>
+                </div>
+            </div>
         </div>
+
+        <!-- Fim container de enviar mensagens  -->
 
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script

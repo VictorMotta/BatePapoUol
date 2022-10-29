@@ -36,6 +36,9 @@ body {
     font-size: 43px;
     cursor: pointer;
 }
+
+/* Inicio do chat  */
+
 .container-chat {
     width: 100%;
     margin: 106px 0;
@@ -85,13 +88,31 @@ body {
     padding: 0 18px;
 }
 
-.container-enviar-mensagem input {
+/* Inicio do envia mensagem para todos */
+
+.container-enviar-mensagem .container-hidden-mensagem-todos {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.container-enviar-mensagem .container-hidden-mensagem-todos .mensagem-todos {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 30%;
+    left: 0;
+}
+
+.container-enviar-mensagem .mensagem-todos input {
     border: none;
     width: 90%;
     height: 40px;
 }
 
-.container-enviar-mensagem input::placeholder {
+.container-enviar-mensagem .mensagem-todos input::placeholder {
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: 400;
@@ -99,10 +120,66 @@ body {
     font-style: italic;
 }
 
-.container-enviar-mensagem ion-icon {
+.container-enviar-mensagem .mensagem-todos ion-icon {
     font-size: 26px;
     cursor: pointer;
 }
+
+/* Inicio do envia mensagem reservada  */
+
+.container-enviar-mensagem .container-hidden-mensagem-reservado {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.container-enviar-mensagem .container-hidden-mensagem-reservado .mensagem-reservada-envio {
+    width: 100%;
+    position: absolute;
+    top: 10%;
+    left: 0;
+}
+.container-enviar-mensagem .container-hidden-mensagem-reservado .mensagem-reservada-envio div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container-enviar-mensagem .container-hidden-mensagem-reservado .mensagem-reservada-envio input {
+    border: none;
+    width: 90%;
+    height: 40px;
+}
+
+.container-enviar-mensagem
+    .container-hidden-mensagem-reservado
+    .mensagem-reservada-envio
+    input::placeholder {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000;
+    font-style: italic;
+}
+.container-enviar-mensagem .container-hidden-mensagem-reservado .mensagem-reservada-envio ion-icon {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.container-enviar-mensagem .container-hidden-mensagem-reservado .mensagem-reservada-envio h3 {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.container-enviar-mensagem
+    .container-hidden-mensagem-reservado
+    .mensagem-reservada-envio
+    #nome-usuario-enviar-reservado {
+    font-weight: 300;
+}
+
+/* Inicio do login  */
 
 .container-hidden-login {
     width: 100%;
@@ -206,4 +283,81 @@ body {
 .container-entrando h1 {
     text-align: center;
     margin-top: 20px;
+}
+
+/* Inicio do menu de participantes  */
+
+.container-fora-menu-participantes {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.container-com-flex {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.container-menu-participantes {
+    width: 70%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 6;
+}
+
+.container-menu-participantes h1 {
+    width: 65%;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.container-menu-participantes h3 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 10px;
+}
+
+.container-menu-participantes .usuarios-participantes,
+.container-menu-participantes .escolhe-visibilidade {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+.container-menu-participantes .usuarios-participantes .lista-participantes,
+.container-menu-participantes .escolhe-visibilidade .lista-escolhe-visibilidade {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.container-menu-participantes ion-icon {
+    font-size: 23px;
+}
+
+#button-fechar {
+    width: 30%;
+    height: 100%;
+}
+
+.selected {
+    background: url(../img/selected.svg) no-repeat;
+    background-position: 80%;
 }

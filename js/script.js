@@ -1,60 +1,22 @@
 let usuario;
-
-const inputMensagem = document.querySelector("#envia-mensagem");
+let usuarioReservado = "Todos";
+const containerParticipantesHidden = document.querySelector(".container-fora-menu-participantes");
+const buttonMenuParticipantes = document.querySelector("#menu-participantes");
+const buttonFecharMenuParticipantes = document.querySelector("#button-fechar");
+const mensagemPublica = document.querySelector("#input-mensagem-todos");
+const containerMensagemPublica = document.querySelector(".container-hidden-mensagem-todos");
+const mensagemReservada = document.querySelector("#input-mensagem-reservada");
+const containerMensagemReservada = document.querySelector(".container-hidden-mensagem-reservado");
 const inputNomeDeUsuario = document.querySelector("#nome-usuario");
 const link = "https://mock-api.driven.com.br/api/v6/uol";
 
-function buscaMensagem() {
-    const promisse = axios.get(`${link}/messages`);
+function salvaNomeUsuario() {
+    const usuarioDigitado = document.querySelector("#nome-usuario").value;
+    usuario = {
+        name: usuarioDigitado,
+    };
 
-    promisse.then(carregaMensagem);
-    setTimeout(scrollBar, 500);
-}
-
-function carregaMensagem(resposta) {
-    const listaMensagem = resposta.data;
-    const containerChat = document.querySelector(".container-chat");
-    containerChat.innerHTML = "";
-    for (let i = 0; i <= listaMensagem.length; i++) {
-        if (listaMensagem[i].type == "message") {
-            containerChat.innerHTML += `            
-            <li class="mensagem mensagem-global">
-                <h3>
-                    <span class="horario">(${listaMensagem[i].time})</span> <span class="usuario">${listaMensagem[i].from}</span> para
-                    <span>${listaMensagem[i].to}:</span> ${listaMensagem[i].text}
-                </h3>
-            </li>
-            `;
-        } else if (listaMensagem[i].type == "status") {
-            containerChat.innerHTML += `            
-            <li class="mensagem status">
-                <h3>
-                    <span class="horario">(${listaMensagem[i].time})</span> <span class="usuario">${listaMensagem[i].from}</span> ${listaMensagem[i].text}
-                </h3>
-            </li>
-            `;
-        } else if (listaMensagem[i].type == "private_message" && listaMensagem[i].to == usuario) {
-            console.log(listaMensagem[i].to);
-            containerChat.innerHTML += `            
-            <li class="mensagem mensagem-reservada">
-                <h3>
-                    <span class="horario">(${listaMensagem[i].time})</span>
-                    <span class="usuario">${listaMensagem[i].from}</span> reservadamente para
-                    <span class="mensagem-privada">${listaMensagem[i].to}:</span> ${listaMensagem[i].text}
-                </h3>
-            </li>
-            `;
-        }
-    }
-}
-
-function scrollBar() {
-    const elementoQueQueroQueApareca = document.querySelectorAll(".mensagem");
-    if (elementoQueQueroQueApareca != undefined) {
-        elementoQueQueroQueApareca.forEach((i) => {
-            i.scrollIntoView();
-        });
-    }
+    entraNaSala();
 }
 
 function entraNaSala() {
@@ -85,61 +47,6 @@ function errorEntraSala(resposta) {
     }
 }
 
-function updateStatus() {
-    const promisse = axios.post(`${link}/status`, usuario);
-    promisse.then(verificaOnline);
-}
-
-function verificaOnline(resposta) {
-    console.log("Conectado!");
-}
-
-function enviaMensagem() {
-    const mensagemDigitada = document.querySelector("#envia-mensagem").value;
-    console.log(typeof mensagemDigitada);
-    const textUsuario = usuario.name;
-
-    let mensagem = {
-        from: textUsuario,
-        text: mensagemDigitada,
-        to: "Todos",
-        type: "message", // ou "private_message" para o bônus
-    };
-
-    const promise = axios.post(`${link}/messages/`, mensagem);
-    promise.then(respostaEnvio);
-    promise.catch(errorEnvio);
-}
-function respostaEnvio(resposta) {
-    buscaMensagem();
-    const mensagemDigitada = document.querySelector("#envia-mensagem");
-    mensagemDigitada.value = "";
-    console.log("Enviado codigo: " + resposta.status);
-    mensagemDigitada.placeholder = "Escreva aqui...";
-    mensagemDigitada.style.border = "none";
-}
-
-function errorEnvio(resposta) {
-    const mensagemDigitada = document.querySelector("#envia-mensagem");
-    if (resposta.response.status == 400) {
-        if (mensagemDigitada.value == "") {
-            mensagemDigitada.placeholder = "Digite alguma coisa antes de enviar!";
-            mensagemDigitada.style.border = "1px solid red";
-        }
-    } else {
-        window.location.reload();
-    }
-}
-
-function salvaNomeUsuario() {
-    const usuarioDigitado = document.querySelector("#nome-usuario").value;
-    usuario = {
-        name: usuarioDigitado,
-    };
-
-    entraNaSala();
-}
-
 function loadingEntraSala() {
     const apagaInput = document.querySelector(".container-total-login");
     const amostraLoading = document.querySelector(".container-loading");
@@ -156,9 +63,217 @@ function loadingEntraSala() {
     }, 500);
 }
 
-inputMensagem.addEventListener("keypress", (e) => {
+function buscaMensagem() {
+    const promisse = axios.get(`${link}/messages`);
+
+    promisse.then(carregaMensagem);
+    setTimeout(scrollBar, 500);
+}
+
+function carregaMensagem(resposta) {
+    const listaMensagem = resposta.data;
+    console.log(listaMensagem);
+    const containerChat = document.querySelector(".container-chat");
+    containerChat.innerHTML = "";
+    for (let i = 0; i <= listaMensagem.length; i++) {
+        if (listaMensagem[i].type == "message") {
+            containerChat.innerHTML += `            
+            <li class="mensagem mensagem-global">
+                <h3>
+                    <span class="horario">(${listaMensagem[i].time})</span> <span class="usuario">${listaMensagem[i].from}</span> para
+                    <span>${listaMensagem[i].to}:</span> ${listaMensagem[i].text}
+                </h3>
+            </li>
+            `;
+        } else if (listaMensagem[i].type == "status") {
+            containerChat.innerHTML += `            
+            <li class="mensagem status">
+                <h3>
+                    <span class="horario">(${listaMensagem[i].time})</span> <span class="usuario">${listaMensagem[i].from}</span> ${listaMensagem[i].text}
+                </h3>
+            </li>
+            `;
+        } else if (
+            listaMensagem[i].type == "private_message" &&
+            (usuario.name == listaMensagem[i].to || usuario.name == listaMensagem[i].from)
+        ) {
+            console.log(listaMensagem[i].to);
+            containerChat.innerHTML += `            
+            <li class="mensagem mensagem-reservada">
+                <h3>
+                    <span class="horario">(${listaMensagem[i].time})</span>
+                    <span class="usuario">${listaMensagem[i].from}</span> reservadamente para
+                    <span class="mensagem-privada">${listaMensagem[i].to}:</span> ${listaMensagem[i].text}
+                </h3>
+            </li>
+            `;
+        }
+    }
+}
+
+function scrollBar() {
+    const elementoQueQueroQueApareca = document.querySelectorAll(".mensagem");
+    if (elementoQueQueroQueApareca != undefined) {
+        elementoQueQueroQueApareca.forEach((i) => {
+            i.scrollIntoView();
+        });
+    }
+}
+
+function updateStatus() {
+    const promisse = axios.post(`${link}/status`, usuario);
+    promisse.then(verificaOnline);
+}
+
+function verificaOnline(resposta) {
+    console.log("Conectado!");
+}
+
+function enviaMensagemPublica() {
+    const mensagemDigitada = document.querySelector("#input-mensagem-todos").value;
+
+    const textUsuario = usuario.name;
+
+    let mensagem = {
+        from: textUsuario,
+        text: mensagemDigitada,
+        to: "Todos",
+        type: "message", // ou "private_message" para o bônus
+    };
+
+    const promise = axios.post(`${link}/messages/`, mensagem);
+    promise.then(respostaEnvioMensagemPublica);
+    promise.catch(errorEnvioMensagemPublica);
+}
+
+function respostaEnvioMensagemPublica(resposta) {
+    buscaMensagem();
+    const mensagemDigitada = document.querySelector("#input-mensagem-todos");
+    mensagemDigitada.value = "";
+    console.log("Enviado codigo mensagem publica: " + resposta.status);
+    mensagemDigitada.placeholder = "Escreva aqui...";
+    mensagemDigitada.style.border = "none";
+}
+
+function errorEnvioMensagemPublica(resposta) {
+    const mensagemDigitada = document.querySelector("#input-mensagem-todos");
+    if (resposta.response.status == 400) {
+        if (mensagemDigitada.value == "") {
+            mensagemDigitada.placeholder = "Digite alguma coisa antes de enviar!";
+            mensagemDigitada.style.border = "1px solid red";
+        }
+    } else {
+        window.location.reload();
+    }
+}
+
+function enviaMensagemReservada() {
+    console.log(usuarioReservado);
+    const mensagemDigitada = mensagemReservada.value;
+    const textUsuario = usuario.name;
+    console.log(mensagemDigitada);
+    console.log(textUsuario);
+    let mensagem = {
+        from: textUsuario,
+        text: mensagemDigitada,
+        to: usuarioReservado,
+        type: "private_message", // ou "private_message" para o bônus
+    };
+    console.log(mensagem);
+
+    const promise = axios.post(`${link}/messages/`, mensagem);
+    promise.then(respostaEnvioMensagemReservada);
+    promise.catch(errorEnvioMensagemReservada);
+    console.log(promise);
+}
+
+function respostaEnvioMensagemReservada(resposta) {
+    buscaMensagem();
+    console.log(resposta);
+    mensagemReservada.value = "";
+    console.log("Enviado codigo mensagem reservada: " + resposta.status);
+    mensagemReservada.placeholder = "Escreva aqui...";
+    mensagemReservada.style.border = "none";
+}
+
+function errorEnvioMensagemReservada(resposta) {
+    if (resposta.response.status == 400) {
+        if (mensagemReservada.value == "") {
+            mensagemReservada.placeholder = "Digite alguma coisa antes de enviar!";
+            mensagemReservada.style.border = "1px solid red";
+        }
+    } else {
+        window.location.reload();
+    }
+    console.log(resposta);
+}
+
+function buscaUsuariosReservado() {
+    const promise = axios.get(`${link}/participants`);
+
+    promise.then(carregaUsuariosReservados);
+    promise.catch(errorUsuariosReservados);
+}
+function carregaUsuariosReservados(resposta) {
+    const listaUsuariosReservados = resposta.data;
+    const containerUsuariosReservados = document.querySelector(".usuarios-participantes");
+    console.log("Usuarios Carregado! codigo:" + resposta.status);
+    console.log(resposta.data);
+    console.log(containerUsuariosReservados);
+    containerUsuariosReservados.innerHTML = `
+        <li onclick="selecionaUsuarioReservado(this)" class="lista-participantes todos-participantes selected">
+        <ion-icon name="people"></ion-icon>
+        <h3>Todos</h3>
+        </li>
+        `;
+    console.log(listaUsuariosReservados);
+    for (let i = 0; i <= listaUsuariosReservados.length; i++) {
+        console.log(containerUsuariosReservados);
+        containerUsuariosReservados.innerHTML += `
+            <li onclick="selecionaUsuarioReservado(this)" class="lista-participantes usuarios">
+            <ion-icon name="person-circle"></ion-icon>
+            <h3>${listaUsuariosReservados[i].name}</h3>
+            </li>
+            `;
+    }
+}
+
+function errorUsuariosReservados(resposta) {
+    console.log(resposta);
+}
+
+function selecionaUsuarioReservado(usuarioR) {
+    const seleciona = document.querySelector(".usuarios-participantes .selected");
+    const msgBaixoInputReservado = document.querySelector("#nome-usuario-enviar-reservado");
+
+    seleciona.classList.remove("selected");
+
+    usuarioR.classList.add("selected");
+
+    usuarioReservado = usuarioR.querySelector("h3").innerHTML;
+    // imprime o nome do usuario reservado em baixo do input reservado
+    msgBaixoInputReservado.innerHTML = usuarioReservado;
+}
+
+function selecionaVisibilidade(select) {
+    const seleciona = document.querySelector(".escolhe-visibilidade .selected");
+
+    seleciona.classList.remove("selected");
+
+    select.classList.add("selected");
+
+    if (select.id == "publico") {
+        containerMensagemReservada.classList.add("hidden");
+        containerMensagemPublica.classList.remove("hidden");
+    } else if (select.id == "reservado") {
+        containerMensagemPublica.classList.add("hidden");
+        containerMensagemReservada.classList.remove("hidden");
+    }
+}
+
+mensagemPublica.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
-        enviaMensagem();
+        enviaMensagemPublica();
     }
 });
 
@@ -166,4 +281,13 @@ inputNomeDeUsuario.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         salvaNomeUsuario();
     }
+});
+
+buttonMenuParticipantes.addEventListener("click", (e) => {
+    buscaUsuariosReservado();
+    containerParticipantesHidden.classList.remove("hidden");
+});
+
+buttonFecharMenuParticipantes.addEventListener("click", (e) => {
+    containerParticipantesHidden.classList.add("hidden");
 });
