@@ -72,7 +72,7 @@ function carregaMensagem(resposta) {
     const listaMensagem = resposta.data;
     const containerChat = document.querySelector(".container-chat");
     containerChat.innerHTML = "";
-    for (let i = 0; i <= listaMensagem.length; i++) {
+    for (let i = 0; i < listaMensagem.length; i++) {
         if (listaMensagem[i].type == "message") {
             containerChat.innerHTML += `            
             <li class="mensagem mensagem-global">
