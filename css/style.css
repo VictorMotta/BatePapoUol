@@ -118,6 +118,9 @@ body {
     border: none;
     width: 90%;
     height: 40px;
+    outline: 0;
+    box-shadow: 0 0 0 0;
+    border-color: transparent;
 }
 
 .container-enviar-mensagem .mensagem-todos input::placeholder {
@@ -157,6 +160,9 @@ body {
     border: none;
     width: 90%;
     height: 40px;
+    outline: 0;
+    box-shadow: 0 0 0 0;
+    border-color: transparent;
 }
 
 .container-enviar-mensagem .container-hidden-mensagem-reservado .mensagem-reservada-envio ion-icon {
