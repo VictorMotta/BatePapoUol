@@ -13,7 +13,7 @@ const link = "https://mock-api.driven.com.br/api/v6/uol";
 function salvaNomeUsuario() {
     const usuarioDigitado = document.querySelector("#nome-usuario").value;
     usuario = {
-        name: usuarioDigitado,
+        name: usuarioDigitado.toLowerCase(),
     };
 
     entraNaSala();
@@ -274,6 +274,12 @@ function selecionaVisibilidade(select) {
 mensagemPublica.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         enviaMensagemPublica();
+    }
+});
+
+mensagemReservada.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        enviaMensagemReservada();
     }
 });
 
