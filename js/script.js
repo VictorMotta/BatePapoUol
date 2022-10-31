@@ -239,6 +239,7 @@ function buscaUsuariosReservado() {
     promise.then(carregaUsuariosReservados);
     promise.catch(errorUsuariosReservados);
 }
+
 function carregaUsuariosReservados(resposta) {
     const listaUsuariosReservados = resposta.data;
     const containerUsuariosReservados = document.querySelector(".usuarios-participantes");
@@ -254,12 +255,17 @@ function carregaUsuariosReservados(resposta) {
     console.log(listaUsuariosReservados);
     for (let i = 0; i <= listaUsuariosReservados.length; i++) {
         console.log(containerUsuariosReservados);
-        containerUsuariosReservados.innerHTML += `
+        if (listaUsuariosReservados[i].name === usuario.name) {
+            console.log("Entrou no if");
+            continue;
+        } else {
+            containerUsuariosReservados.innerHTML += `
             <li onclick="selecionaUsuarioReservado(this)" class="lista-participantes usuarios">
             <ion-icon name="person-circle"></ion-icon>
             <h3>${listaUsuariosReservados[i].name}</h3>
             </li>
             `;
+        }
     }
 }
 
