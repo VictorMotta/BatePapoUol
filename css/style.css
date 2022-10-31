@@ -339,6 +339,11 @@ body {
     margin-left: 50px;
     margin-top: 30px;
 }
+.container-menu-participantes .usuarios-participantes {
+    height: 200px;
+    overflow-y: scroll;
+}
+
 .container-menu-participantes .usuarios-participantes .lista-participantes,
 .container-menu-participantes .escolhe-visibilidade .lista-escolhe-visibilidade {
     width: 100%;
