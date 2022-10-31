@@ -172,6 +172,8 @@ function errorEnvioMensagemPublica(resposta) {
         if (mensagemDigitada.value == "") {
             mensagemDigitada.placeholder = "Digite alguma coisa antes de enviar!";
             mensagemDigitada.style.border = "1px solid red";
+        } else {
+            window.location.reload();
         }
     } else {
         window.location.reload();
@@ -241,7 +243,7 @@ function carregaUsuariosReservados(resposta) {
         <h3>Todos</h3>
         </li>
         `;
-    for (let i = 0; i <= listaUsuariosReservados.length; i++) {
+    for (let i = 0; i < listaUsuariosReservados.length; i++) {
         if (listaUsuariosReservados[i].name === usuario.name) {
             console.log("Entrou no if");
             continue;
