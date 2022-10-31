@@ -20,7 +20,6 @@ function salvaNomeUsuario() {
 }
 
 function entraNaSala() {
-    console.log(usuario);
     const promisse = axios.post(`${link}/participants`, usuario);
     promisse.then((resposta) => {
         loadingEntraSala();
@@ -32,7 +31,6 @@ function entraNaSala() {
 }
 
 function errorEntraSala(resposta) {
-    console.log(resposta);
     if (resposta.response.status === 400) {
         const mostraInput = document.querySelector(".container-total-login");
         const apagaLoading = document.querySelector(".container-loading");
@@ -72,7 +70,6 @@ function buscaMensagem() {
 
 function carregaMensagem(resposta) {
     const listaMensagem = resposta.data;
-    console.log(listaMensagem);
     const containerChat = document.querySelector(".container-chat");
     containerChat.innerHTML = "";
     for (let i = 0; i <= listaMensagem.length; i++) {
@@ -97,7 +94,6 @@ function carregaMensagem(resposta) {
             listaMensagem[i].type == "private_message" &&
             usuario.name == listaMensagem[i].to
         ) {
-            console.log(listaMensagem[i].to);
             containerChat.innerHTML += `            
             <li class="mensagem mensagem-reservada">
                 <h3>
@@ -183,11 +179,8 @@ function errorEnvioMensagemPublica(resposta) {
 }
 
 function enviaMensagemReservada() {
-    console.log(usuarioReservado);
     const mensagemDigitada = mensagemReservada.value;
     const textUsuario = usuario.name;
-    console.log(mensagemDigitada);
-    console.log(textUsuario);
     let mensagem = {
         from: textUsuario,
         text: mensagemDigitada,
@@ -204,7 +197,6 @@ function enviaMensagemReservada() {
 
 function respostaEnvioMensagemReservada(resposta) {
     buscaMensagem();
-    console.log(resposta);
     mensagemReservada.value = "";
     console.log("Enviado codigo mensagem reservada: " + resposta.status);
     mensagemReservada.placeholder = "Escreva aqui...";
@@ -220,7 +212,6 @@ function errorEnvioMensagemReservada(resposta) {
     } else {
         window.location.reload();
     }
-    console.log(resposta);
 }
 
 function responderPrivado(valor) {
@@ -244,17 +235,13 @@ function carregaUsuariosReservados(resposta) {
     const listaUsuariosReservados = resposta.data;
     const containerUsuariosReservados = document.querySelector(".usuarios-participantes");
     console.log("Usuarios Carregado! codigo:" + resposta.status);
-    console.log(resposta.data);
-    console.log(containerUsuariosReservados);
     containerUsuariosReservados.innerHTML = `
         <li onclick="selecionaUsuarioReservado(this)" class="lista-participantes todos-participantes selected">
         <ion-icon name="people"></ion-icon>
         <h3>Todos</h3>
         </li>
         `;
-    console.log(listaUsuariosReservados);
     for (let i = 0; i <= listaUsuariosReservados.length; i++) {
-        console.log(containerUsuariosReservados);
         if (listaUsuariosReservados[i].name === usuario.name) {
             console.log("Entrou no if");
             continue;
@@ -270,7 +257,7 @@ function carregaUsuariosReservados(resposta) {
 }
 
 function errorUsuariosReservados(resposta) {
-    console.log(resposta);
+    console.log(resposta.response.status);
 }
 
 function selecionaUsuarioReservado(usuarioR) {
