@@ -72,6 +72,14 @@ body {
 
 .mensagem-reservada {
     background: #ffdede;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mensagem-reservada ion-icon {
+    font-size: 25px;
+    margin-left: 20px;
+    cursor: pointer;
 }
 
 .container-enviar-mensagem {
@@ -151,16 +159,6 @@ body {
     height: 40px;
 }
 
-.container-enviar-mensagem
-    .container-hidden-mensagem-reservado
-    .mensagem-reservada-envio
-    input::placeholder {
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: #000;
-    font-style: italic;
-}
 .container-enviar-mensagem .container-hidden-mensagem-reservado .mensagem-reservada-envio ion-icon {
     font-size: 26px;
     cursor: pointer;
@@ -339,6 +337,7 @@ body {
     margin-left: 50px;
     margin-top: 30px;
 }
+
 .container-menu-participantes .usuarios-participantes {
     height: 200px;
     overflow-y: scroll;

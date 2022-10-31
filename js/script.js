@@ -95,7 +95,22 @@ function carregaMensagem(resposta) {
             `;
         } else if (
             listaMensagem[i].type == "private_message" &&
-            (usuario.name == listaMensagem[i].to || usuario.name == listaMensagem[i].from)
+            usuario.name == listaMensagem[i].to
+        ) {
+            console.log(listaMensagem[i].to);
+            containerChat.innerHTML += `            
+            <li class="mensagem mensagem-reservada">
+                <h3>
+                    <span class="horario">(${listaMensagem[i].time})</span>
+                    <span class="usuario">${listaMensagem[i].from}</span> reservadamente para
+                    <span class="mensagem-privada">${listaMensagem[i].to}:</span> ${listaMensagem[i].text}
+                </h3>
+                <ion-icon onclick="responderPrivado(this)" name="arrow-undo"></ion-icon>
+            </li>
+            `;
+        } else if (
+            listaMensagem[i].type == "private_message" &&
+            usuario.name == listaMensagem[i].from
         ) {
             console.log(listaMensagem[i].to);
             containerChat.innerHTML += `            
@@ -206,6 +221,16 @@ function errorEnvioMensagemReservada(resposta) {
         window.location.reload();
     }
     console.log(resposta);
+}
+
+function responderPrivado(valor) {
+    const containerLi = valor.parentNode;
+
+    usuarioReservado = containerLi.querySelector(".usuario").innerHTML;
+    containerMensagemReservada.querySelector("#nome-usuario-enviar-reservado").innerHTML =
+        usuarioReservado;
+    containerMensagemPublica.classList.add("hidden");
+    containerMensagemReservada.classList.remove("hidden");
 }
 
 function buscaUsuariosReservado() {
