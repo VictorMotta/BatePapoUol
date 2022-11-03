@@ -14,8 +14,22 @@
             <div class="container-total-login">
                 <div class="container-login">
                     <img src="./img/logo.svg" alt="" />
-                    <input type="text" id="nome-usuario" class="" placeholder="Digite seu nome" />
-                    <button onclick="salvaNomeUsuario();" class="" id="botao-enviar">Entrar</button>
+                    <input
+                        type="text"
+                        id="nome-usuario"
+                        data-test="input-name"
+                        class=""
+                        placeholder="Digite seu nome"
+                    />
+                    <button
+                        onclick="salvaNomeUsuario();"
+                        atributo
+                        data-test="send-name"
+                        class=""
+                        id="botao-enviar"
+                    >
+                        Entrar
+                    </button>
                 </div>
             </div>
             <div class="container-loading hidden">
@@ -33,7 +47,11 @@
 
         <div class="container-topo">
             <img class="img-logo" src="./img/logo.svg" alt="" />
-            <ion-icon id="menu-participantes" name="people"></ion-icon>
+            <ion-icon
+                id="menu-participantes"
+                name="people"
+                data-test="open-participants"
+            ></ion-icon>
         </div>
 
         <!-- Fim menu topo  -->
@@ -52,6 +70,7 @@
                             id="publico"
                             onclick="selecionaVisibilidade(this)"
                             class="lista-escolhe-visibilidade selected"
+                            data-test="public"
                         >
                             <ion-icon name="lock-open"></ion-icon>
                             <h3>Público</h3>
@@ -60,6 +79,7 @@
                             id="reservado"
                             onclick="selecionaVisibilidade(this)"
                             class="lista-escolhe-visibilidade"
+                            data-test="check"
                         >
                             <ion-icon name="lock-closed"></ion-icon>
                             <h3>Reservadamente</h3>
@@ -82,11 +102,17 @@
         <div class="container-enviar-mensagem">
             <div class="container-hidden-mensagem-todos">
                 <div class="mensagem-todos">
-                    <input id="input-mensagem-todos" type="text" placeholder="Escreva aqui..." />
+                    <input
+                        id="input-mensagem-todos"
+                        type="text"
+                        placeholder="Escreva aqui..."
+                        data-test="input-message"
+                    />
                     <ion-icon
                         id="send-mensagem-todos"
                         name="paper-plane-outline"
                         onclick="enviaMensagemPublica()"
+                        data-test="send-message"
                     ></ion-icon>
                 </div>
             </div>
@@ -97,16 +123,19 @@
                             id="input-mensagem-reservada"
                             type="text"
                             placeholder="Escreva aqui..."
+                            data-test="input-message"
                         />
                         <ion-icon
                             id="send-mensagem-reservada"
                             name="paper-plane-outline"
                             onclick="enviaMensagemReservada()"
+                            data-test="send-message"
                         ></ion-icon>
                     </div>
                     <h3>
                         Enviando para
-                        <span id="nome-usuario-enviar-reservado">Todos</span> (reservadamente)
+                        <span data-test="recipient" id="nome-usuario-enviar-reservado">Todos</span>
+                        (reservadamente)
                     </h3>
                 </div>
             </div>

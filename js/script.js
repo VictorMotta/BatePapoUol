@@ -75,7 +75,7 @@ function carregaMensagem(resposta) {
     for (let i = 0; i < listaMensagem.length; i++) {
         if (listaMensagem[i].type == "message") {
             containerChat.innerHTML += `            
-            <li class="mensagem mensagem-global">
+            <li class="mensagem mensagem-global" data-test="message">
                 <h3>
                     <span class="horario">(${listaMensagem[i].time})</span> <span class="usuario">${listaMensagem[i].from}</span> para
                     <span>${listaMensagem[i].to}:</span> ${listaMensagem[i].text}
@@ -84,7 +84,7 @@ function carregaMensagem(resposta) {
             `;
         } else if (listaMensagem[i].type == "status") {
             containerChat.innerHTML += `            
-            <li class="mensagem status">
+            <li class="mensagem status" data-test="message">
                 <h3>
                     <span class="horario">(${listaMensagem[i].time})</span> <span class="usuario">${listaMensagem[i].from}</span> ${listaMensagem[i].text}
                 </h3>
@@ -95,7 +95,7 @@ function carregaMensagem(resposta) {
             usuario.name == listaMensagem[i].to
         ) {
             containerChat.innerHTML += `            
-            <li class="mensagem mensagem-reservada">
+            <li class="mensagem mensagem-reservada" data-test="message">
                 <h3>
                     <span class="horario">(${listaMensagem[i].time})</span>
                     <span class="usuario">${listaMensagem[i].from}</span> reservadamente para
@@ -110,7 +110,7 @@ function carregaMensagem(resposta) {
         ) {
             console.log(listaMensagem[i].to);
             containerChat.innerHTML += `            
-            <li class="mensagem mensagem-reservada">
+            <li class="mensagem mensagem-reservada" data-test="message">
                 <h3>
                     <span class="horario">(${listaMensagem[i].time})</span>
                     <span class="usuario">${listaMensagem[i].from}</span> reservadamente para
@@ -238,7 +238,7 @@ function carregaUsuariosReservados(resposta) {
     const containerUsuariosReservados = document.querySelector(".usuarios-participantes");
     console.log("Usuarios Carregado! codigo:" + resposta.status);
     containerUsuariosReservados.innerHTML = `
-        <li onclick="selecionaUsuarioReservado(this)" class="lista-participantes todos-participantes selected">
+        <li onclick="selecionaUsuarioReservado(this)" data-test="all" class="lista-participantes todos-participantes selected">
         <ion-icon name="people"></ion-icon>
         <h3>Todos</h3>
         </li>
@@ -249,7 +249,7 @@ function carregaUsuariosReservados(resposta) {
             continue;
         } else {
             containerUsuariosReservados.innerHTML += `
-            <li onclick="selecionaUsuarioReservado(this)" class="lista-participantes usuarios">
+            <li onclick="selecionaUsuarioReservado(this)" data-test="participant" class="lista-participantes usuarios">
             <ion-icon name="person-circle"></ion-icon>
             <h3>${listaUsuariosReservados[i].name}</h3>
             </li>
