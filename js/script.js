@@ -42,6 +42,8 @@ function errorEntraSala(resposta) {
         mostraMenuLogin.classList.remove("hidden");
         apagaLoading.classList.add("hidden");
         mostraInput.classList.remove("hidden");
+    } else {
+        window.location.reload();
     }
 }
 
